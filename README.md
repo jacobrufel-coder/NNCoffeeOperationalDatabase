@@ -12,6 +12,9 @@ Drinks
 Daily Coffee Production
 Entity Details
 Customers
+
+
+
 Each customer is identified by a unique Customer ID.
 Attributes stored for each customer include Number of Sales, First Name, Last Name, and Email Address.
 Sales
