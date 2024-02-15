@@ -1,0 +1,114 @@
+CREATE TABLE BUILDING_NNC (
+    BuildingID      INT         PRIMARY KEY,
+    BuildingType    VARCHAR(50),
+    ZipCode         VARCHAR(50)
+);
+
+CREATE TABLE COFFEE_PRODUCTION_NNC (
+    ProductionID        INT         PRIMARY KEY,
+    DateProduced        DATE,
+    Weight              INT,
+    ProportionRobusta   INT,
+    ProportionArabica   INT
+);
+
+CREATE TABLE RECORD_NNC (
+    BuildingID   INT,
+    ProductionID INT,
+    
+    PRIMARY KEY (BuildingID, ProductionID),
+    FOREIGN KEY (BuildingID) REFERENCES BUILDING_NNC(BuildingID),
+    FOREIGN KEY (ProductionID) REFERENCES COFFEE_PRODUCTION_NNC(ProductionID)
+);
+
+CREATE TABLE STAFF_NNC (
+    StaffID      INT         PRIMARY KEY,
+    StaffType    VARCHAR(50),
+    SFirstName   VARCHAR(50),
+    SLastName    VARCHAR(50),
+    
+    BuildingID  INT,
+    FOREIGN KEY (BuildingID) REFERENCES BUILDING_NNC(BuildingID)
+);
+
+CREATE TABLE CUSTOMER_NNC (
+    CustID          INT         PRIMARY KEY,
+    CustFirstName   VARCHAR(50),
+    CustLastName    VARCHAR(50),
+    EmailAddress    VARCHAR(50),
+    NumberOfSales   INT,
+    
+StaffID INT,
+    FOREIGN KEY (StaffID) REFERENCES STAFF_NNC(StaffID)
+);
+
+CREATE TABLE SALE_NNC (
+    SaleID      INT         PRIMARY KEY,
+    SaleType    VARCHAR(50),
+    SaleTotal   INT,
+    
+    CustID      INT,
+    FOREIGN KEY (CustID) REFERENCES CUSTOMER_NNC(CustID),
+    
+    BuildingID  INT,
+    FOREIGN KEY (BuildingID) REFERENCES BUILDING_NNC(BuildingID)
+);
+
+CREATE TABLE DRINK_NNC (
+    DrinkID         INT         PRIMARY KEY,
+    DrinkName       VARCHAR(50),
+    DrinkPrice      INT
+);
+
+CREATE TABLE HAVE_NNC (
+    SaleID  INT,
+    DrinkID INT,
+    
+    PRIMARY KEY (SaleID, DrinkID),
+    FOREIGN KEY (SaleID) REFERENCES SALE_NNC(SaleID),
+    FOREIGN KEY (DrinkID) REFERENCES DRINK_NNC(DrinkID)
+);
+
+INSERT INTO BUILDING_NNC(BuildingID, BuildingType, ZipCode)
+VALUES(15463, 'Hotel', 19082);
+INSERT INTO BUILDING_NNC(BuildingID, BuildingType, ZipCode)
+VALUES(95740, 'Cafe', 19141);
+
+
+INSERT INTO COFFEE_PRODUCTION_NNC(ProductionID, DateProduced, Weight, ProportionRobusta, ProportionArabica)
+VALUES(14382, '03-FEB-19', 150, 30,70);
+INSERT INTO COFFEE_PRODUCTION_NNC(ProductionID, DateProduced, Weight, ProportionRobusta, ProportionArabica)
+VALUES(13452, '16-JUN-17', 160, 50, 50);
+INSERT INTO RECORD_NNC(BuildingID, ProductionID)
+VALUES(15463, 14382);
+INSERT INTO RECORD_NNC(BuildingID, ProductionID)
+VALUES(95740, 13452);
+
+INSERT INTO STAFF_NNC(StaffID, StaffType, SFirstName, SLastName, BuildingID)
+VALUES(10483, 'Manager', 'Rowan', 'SeaCrest', 15463);
+INSERT INTO STAFF_NNC(StaffID, StaffType, SFirstName, SLastName, BuildingID)
+VALUES(18504, 'Barista', 'Bart', 'Tholomew', 15463);
+
+
+INSERT INTO CUSTOMER_NNC(CustID, CustFirstName, CustLastName, EmailAddress, NumberOfSales)
+VALUES(04843,'Larry', 'Quinn', 'larry.quinn@gmail.com', 3);
+INSERT INTO CUSTOMER_NNC(CustID, CustFirstName, CustLastName, EmailAddress, NumberOfSales)
+VALUES(05673,'Jacob', 'Reid', 'jreid@yahoo.com', 10);
+
+
+INSERT INTO SALE_NNC(SaleID, SaleType, SaleTotal, CustID, BuildingID)
+VALUES(5732, 'In-Store', 390, 04843, 15463);
+INSERT INTO SALE_NNC(SaleID, SaleType, SaleTotal, CustID, BuildingID)
+VALUES(3759, 'In-Store', 490, 05673, 95740);
+
+
+INSERT INTO DRINK_NNC(DrinkID,DrinkName, DrinkPrice)
+VALUES(008,'Americano', 12);
+INSERT INTO DRINK_NNC(DrinkID,DrinkName, DrinkPrice)
+VALUES(009,'Cappuccino', 15);
+
+INSERT INTO HAVE_NNC(SaleID, DrinkID)
+VALUES(5732, 008);
+INSERT INTO HAVE_NNC(SaleID, DrinkID)
+VALUES(3759, 009);
+
