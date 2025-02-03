@@ -14,14 +14,14 @@ Entity Details
 
 Customers
 
-Each customer is identified by a unique Customer ID.
+A Unique Customer ID is assigned to differentiate  
 Attributes stored for each customer include Number of Sales, First Name, Last Name, and Email Address.
 
 Sales
 
 Each sale is identified by a unique Sale ID.
 Attributes include Customer ID, Sale Type (In-Store, B2B, or Digital), Drink ID, and Sale Total.
-Every sale must include at least one Drink ID.
+At least one Drink ID is included in every Sale
 
 Buildings
 
@@ -57,3 +57,4 @@ Each building can store one or more coffee production records, and each coffee p
 Notes
 Staff members can also be customers but are not required to be.
 Buildings can store multiple coffee production records, but it's not mandatory for each building to do so.
+It's not mandatory for each building to have multiple coffee product records, but they can if they need to
